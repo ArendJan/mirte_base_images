@@ -4,9 +4,15 @@ on:
   push:
 jobs:
   build-armbian:
+    strategy:
+            matrix:
+                source: [
+                        main,
+                        fix-action-no-custom-userpatches
+                        ]
     runs-on: ubuntu-latest
     steps:
-      - uses: arendjan/build@main
+      - uses: arendjan/build@${{ matrix.source }}
         with:
           armbian_token:     "${{ secrets.GITHUB_TOKEN }}"  # GitHub token
           armbian_release:   "jammy"                        # userspace
