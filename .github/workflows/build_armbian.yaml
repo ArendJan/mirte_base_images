@@ -1,0 +1,49 @@
+name: "Build Armbian"
+on:
+  workflow_dispatch:
+jobs:
+  build-armbian:
+    runs-on: ubuntu-latest
+    strategy:
+            matrix:
+                image: [
+                        orangepi3b,
+                        orangepizero2,
+                        orangepizero
+                        ]
+                ubuntu: [
+                        # focal,
+                        jammy,
+                        # noble
+                        ]
+                version: ["v24.11"]
+                branch: ["edge"]
+                exclude:
+                    - image: orangepi3b
+                      ubuntu: focal
+                    - image: orangepizero2
+                      ubuntu: focal
+            fail-fast: false
+    steps:
+      - uses: armbian/build@main
+        with:
+          armbian_token:     "${{ secrets.GITHUB_TOKEN }}"  # GitHub token
+          armbian_release:   ${{ matrix.ubuntu }}                        # userspace
+          armbian_target:    "build"                        # build=image, kernel=kernel
+          armbian_board:     ${{ matrix.image }}                   # build target
+          armbian_branch:    ${{ matrix.version }}                  # branch
+          armbian_kernel_branch: ${{ matrix.branch }}                  # kernel branch
+      # if on tag, upload to github release
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/output/images/*.img*.xz
+          tag_name: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: ${{ github.ref }}
+          release_notes: ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+ 
