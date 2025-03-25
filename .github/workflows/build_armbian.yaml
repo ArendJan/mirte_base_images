@@ -1,6 +1,7 @@
 name: "Build Armbian"
 on:
   workflow_dispatch:
+  push:
 jobs:
   build-armbian:
     runs-on: ubuntu-latest
