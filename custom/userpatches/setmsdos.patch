@@ -1,0 +1,24 @@
+diff --git a/config/boards/orangepi3b.csc b/config/boards/orangepi3b.csc
+index cea568fb6..68d87137b 100644
+--- a/config/boards/orangepi3b.csc
++++ b/config/boards/orangepi3b.csc
+@@ -7,7 +7,7 @@ BOOT_SOC="rk3566"
+ KERNEL_TARGET="vendor,edge"
+ FULL_DESKTOP="yes"
+ BOOT_LOGO="desktop"
+-IMAGE_PARTITION_TABLE="gpt"
++IMAGE_PARTITION_TABLE="msdos"
+ BOOT_SCENARIO="spl-blobs"
+ BOOT_SUPPORT_SPI="yes"
+ BOOT_SPI_RKSPI_LOADER="yes"
+diff --git a/config/boards/orangepizero2.csc b/config/boards/orangepizero2.csc
+index 1a09f6e27..352cb43f1 100644
+--- a/config/boards/orangepizero2.csc
++++ b/config/boards/orangepizero2.csc
+@@ -7,5 +7,5 @@ BOOT_LOGO="desktop"
+ KERNEL_TARGET="current,edge"
+ KERNEL_TEST_TARGET="current"
+ FORCE_BOOTSCRIPT_UPDATE="yes"
+-
++IMAGE_PARTITION_TABLE="msdos"
+ enable_extension "uwe5622-allwinner"

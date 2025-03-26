@@ -26,6 +26,7 @@ jobs:
                       ubuntu: focal
             fail-fast: false
     steps:
+      - uses: actions/checkout@v4
       - uses: armbian/build@main
         with:
           armbian_token:     "${{ secrets.GITHUB_TOKEN }}"  # GitHub token
