@@ -18,7 +18,7 @@ jobs:
                         # noble
                         ]
                 version: ["v24.11"]
-                branch: ["edge", "current", "lts"]
+                branch: ["edge", "current", "lts", "vendor"]
                 exclude:
                     - image: orangepi3b
                       ubuntu: focal
