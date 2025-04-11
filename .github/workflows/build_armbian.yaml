@@ -11,7 +11,7 @@ jobs:
                         orangepi3b,
                         orangepizero2,
                         orangepizero,
-                        rpi4b,
+                        # rpi4b, # TODO: failing for now, we just use the latest image from Arbian
                         ]
                 ubuntu: [
                         # focal,
