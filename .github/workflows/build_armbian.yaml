@@ -8,9 +8,9 @@ jobs:
     strategy:
             matrix:
                 image: [
-                        # orangepi3b,
-                        # orangepizero2,
-                        # orangepizero,
+                        orangepi3b,
+                        orangepizero2,
+                        orangepizero,
                         rpi4b,
                         ]
                 ubuntu: [
@@ -54,5 +54,36 @@ jobs:
           release_notes: ${{ github.ref }}
           draft: false
           prerelease: false
-
- 
+  join_shasums:
+    runs-on: ubuntu-latest
+    # needs: build-armbian
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # install gh
+      - name: Install gh
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh
+      # login to gh
+      - name: Login to gh
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+      # download all .sha files of the last release
+      - name: Download SHA files
+        run: |
+          mkdir -p shasums
+            gh release download --pattern '*.sha' --dir shasums
+      # remove */armbian/.tmp/image-165daace-3671-4e2d-b904-2cbce039a433/ from the file names, keeping the checksum and the actual filename
+      - name: Remove tmp path from file names
+        run: |
+          echo "cleaning up..."
+          for file in shasums/*.sha; do
+            sed -i 's|\*/armbian/.tmp/image-[0-9a-f-]*/||g' $file
+          done
+          # sed -i 's|\*/armbian/.tmp/image-[0-9a-f-]*/||g' *.sha
+      - name: Upload all_shasums.sha256sum
+        run: |
+          cd shasums
+          ls
+          gh release upload ${{ github.ref }} *.sha --clobber
