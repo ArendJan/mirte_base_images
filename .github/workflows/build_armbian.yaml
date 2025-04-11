@@ -8,9 +8,9 @@ jobs:
     strategy:
             matrix:
                 image: [
-                        # orangepi3b,
-                        # orangepizero2,
-                        # orangepizero,
+                        orangepi3b,
+                        orangepizero2,
+                        orangepizero,
                         rpi4b,
                         ]
                 ubuntu: [
@@ -74,23 +74,16 @@ jobs:
         run: |
           mkdir -p shasums
             gh release download --pattern '*.sha' --dir shasums
-      # join all .sha files into one
-      - name: Join SHA files
-        run: |
-          cd shasums
-          ls
-          for file in *.sha; do
-            cat $file >> ../all_shasums.sha256sum
-          done
-          cd ..
       # remove */armbian/.tmp/image-165daace-3671-4e2d-b904-2cbce039a433/ from the file names, keeping the checksum and the actual filename
       - name: Remove tmp path from file names
         run: |
-          cat all_shasums.sha256sum
           echo "cleaning up..."
-          sed -i 's|\*/armbian/.tmp/image-[0-9a-f-]*/||g' all_shasums.sha256sum
-          cat all_shasums.sha256sum
-      # upload all_shasums.sha256sum to the release
+          for file in shasums/*.sha; do
+            sed -i 's|\*/armbian/.tmp/image-[0-9a-f-]*/||g' $file
+          done
+          # sed -i 's|\*/armbian/.tmp/image-[0-9a-f-]*/||g' *.sha
       - name: Upload all_shasums.sha256sum
         run: |
-          gh release upload ${{ github.ref }} all_shasums.sha256sum --clobber
+          cd shasums
+          ls
+          gh release upload ${{ github.ref }} *.sha --clobber
