@@ -56,7 +56,7 @@ jobs:
           prerelease: false
   join_shasums:
     runs-on: ubuntu-latest
-    # needs: build-armbian
+    needs: build-armbian
     steps:
       - name: Checkout
         uses: actions/checkout@v4
