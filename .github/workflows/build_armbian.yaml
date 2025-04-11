@@ -54,5 +54,37 @@ jobs:
           release_notes: ${{ github.ref }}
           draft: false
           prerelease: false
-
+  join_shasums:
+    runs-on: ubuntu-latest
+    # needs: build-armbian
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # install gh
+      - name: Install gh
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh
+      # login to gh
+      - name: Login to gh
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+      # download all .sha files of the last release
+      - name: Download SHA files
+        run: |
+          mkdir -p shasums
+            gh release download --pattern '*.sha' --dir shasums
+      # join all .sha files into one
+      - name: Join SHA files
+        run: |
+          cd shasums
+          for file in *.sha256sum; do
+            cat $file >> ../all_shasums.sha256sum
+          done
+          cd ..
+      # remove */armbian/.tmp/image-165daace-3671-4e2d-b904-2cbce039a433/ from the file names, keeping the actual filename
+      - name: Remove tmp path from file names
+        run: |
+          sed -i 's|.*/armbian/.tmp/image-[0-9a-f-]*/||g' all_shasums.sha256sum
+          cat all_shasums.sha256sum
  
