@@ -78,13 +78,19 @@ jobs:
       - name: Join SHA files
         run: |
           cd shasums
-          for file in *.sha256sum; do
+          ls
+          for file in *.sha; do
             cat $file >> ../all_shasums.sha256sum
           done
           cd ..
-      # remove */armbian/.tmp/image-165daace-3671-4e2d-b904-2cbce039a433/ from the file names, keeping the actual filename
+      # remove */armbian/.tmp/image-165daace-3671-4e2d-b904-2cbce039a433/ from the file names, keeping the checksum and the actual filename
       - name: Remove tmp path from file names
         run: |
-          sed -i 's|.*/armbian/.tmp/image-[0-9a-f-]*/||g' all_shasums.sha256sum
           cat all_shasums.sha256sum
- 
+          echo "cleaning up..."
+          sed -i 's|\*/armbian/.tmp/image-[0-9a-f-]*/||g' all_shasums.sha256sum
+          cat all_shasums.sha256sum
+      # upload all_shasums.sha256sum to the release
+      - name: Upload all_shasums.sha256sum
+        run: |
+          gh release upload ${{ github.ref }} all_shasums.sha256sum --clobber
