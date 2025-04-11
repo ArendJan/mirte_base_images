@@ -8,9 +8,9 @@ jobs:
     strategy:
             matrix:
                 image: [
-                        orangepi3b,
-                        orangepizero2,
-                        orangepizero,
+                        # orangepi3b,
+                        # orangepizero2,
+                        # orangepizero,
                         rpi4b,
                         ]
                 ubuntu: [
