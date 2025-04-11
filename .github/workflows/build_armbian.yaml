@@ -56,8 +56,8 @@ jobs:
           prerelease: false
   join_shasums:
     runs-on: ubuntu-latest
-    needs: build-armbian
-    if: always()
+    # needs: build-armbian
+    # if: always()
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -87,4 +87,7 @@ jobs:
         run: |
           cd shasums
           ls
-          gh release upload ${{ github.ref }} *.sha --clobber
+          # get latest release tag
+          latest_tag=$(gh release list --limit 1 | awk '{print $4}')
+
+          gh release upload $latest_tag *.sha --clobber
