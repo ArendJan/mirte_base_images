@@ -54,10 +54,10 @@ jobs:
           release_notes: ${{ github.ref }}
           draft: false
           prerelease: false
-  join_shasums:
+  fix_shasums:
     runs-on: ubuntu-latest
-    # needs: build-armbian
-    # if: always()
+    needs: build-armbian
+    if: always()
     steps:
       - name: Checkout
         uses: actions/checkout@v4
