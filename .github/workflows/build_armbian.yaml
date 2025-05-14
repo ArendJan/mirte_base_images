@@ -5,9 +5,6 @@ on:
 jobs:
   build-armbian:
     runs-on: ubuntu-22.04
-    container:
-      image: ghcr.io/armbian/docker-armbian-build:armbian-ubuntu-jammy-latest 
-      # options: --user root
     strategy:
             matrix:
                 image: [
@@ -21,7 +18,7 @@ jobs:
                         jammy,
                         noble
                         ]
-                version: ["v25.05"]
+                version: ["main"]
                 branch: ["edge", "current", "legacy", "vendor"]
                 exclude:
                     - image: orangepizero
