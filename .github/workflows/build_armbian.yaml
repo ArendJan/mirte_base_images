@@ -5,6 +5,9 @@ on:
 jobs:
   build-armbian:
     runs-on: ubuntu-22.04
+    container:
+      image: ghcr.io/armbian/docker-armbian-build:armbian-ubuntu-jammy-latest 
+      # options: --user root
     strategy:
             matrix:
                 image: [
