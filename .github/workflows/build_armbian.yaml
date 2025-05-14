@@ -9,14 +9,14 @@ jobs:
             matrix:
                 image: [
                         orangepi3b,
-                        orangepizero2,
-                        orangepizero,
+                        # orangepizero2,
+                        # orangepizero,
                         # rpi4b, # TODO: failing for now, we just use the latest image from Arbian
                         ]
                 ubuntu: [
                         # focal,
                         jammy,
-                        # noble
+                        noble
                         ]
                 version: ["v25.02"]
                 branch: ["edge", "current", "legacy", "vendor"]
@@ -27,8 +27,8 @@ jobs:
                       branch: vendor
                     - image: orangepizero2
                       branch: legacy
-                    - image: orangepi3b
-                      branch: current
+                    # - image: orangepi3b # not needed anymore as uboot fix is in current now
+                    #   branch: current
                     - image: orangepi3b
                       branch: legacy
             fail-fast: false
