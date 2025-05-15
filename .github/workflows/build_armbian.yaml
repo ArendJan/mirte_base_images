@@ -14,7 +14,7 @@ jobs:
                         # rpi4b, # TODO: failing for now, we just use the latest image from Arbian
                         ]
                 ubuntu: [
-                        # focal,
+                        focal,
                         jammy,
                         # noble
                         ]
