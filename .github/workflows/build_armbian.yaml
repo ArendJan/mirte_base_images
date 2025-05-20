@@ -18,8 +18,10 @@ jobs:
                         jammy,
                         noble
                         ]
-                version: ["v24.11"]
-                branch: ["edge", "current", "legacy", "vendor"]
+                version: ["main"]
+                branch: ["edge",
+                 "current", "legacy", "vendor"
+                ]
                 exclude:
                     - image: orangepizero
                       branch: vendor
