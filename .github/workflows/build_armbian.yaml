@@ -49,7 +49,6 @@ jobs:
           armbian_branch:    ${{ matrix.version }}                  # branch
           armbian_kernel_branch: ${{ matrix.branch }}                  # kernel branch
           armbian_create_release: false
-      - run: tree
 
       # if on tag, upload to github release
       # - name: Create Release
