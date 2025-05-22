@@ -20,7 +20,7 @@ jobs:
                         ]
                 version: ["main"]
                 branch: ["edge",
-                 "current", "legacy", "vendor"
+                #  "current", "legacy", "vendor"
                 ]
                 exclude:
                     - image: orangepizero
