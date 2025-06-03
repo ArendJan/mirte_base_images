@@ -16,23 +16,24 @@ jobs:
                 ubuntu: [
                         # focal,
                         jammy,
-                        # noble
+                        noble
                         ]
-                version: ["main"]
+                version: ["v25.05"]
+                realtime: [1, 0]
                 branch: ["edge",
                 #  "current", "legacy", "vendor"
                 ]
-                exclude:
-                    - image: orangepizero
-                      branch: vendor
-                    - image: orangepizero2
-                      branch: vendor
-                    - image: orangepizero2
-                      branch: legacy
-                    # - image: orangepi3b # not needed anymore as uboot fix is in current now
-                    #   branch: current
-                    - image: orangepi3b
-                      branch: legacy
+                # exclude:
+                #     - image: orangepizero
+                #       branch: vendor
+                #     - image: orangepizero2
+                #       branch: vendor
+                #     - image: orangepizero2
+                #       branch: legacy
+                #     # - image: orangepi3b # not needed anymore as uboot fix is in current now
+                #     #   branch: current
+                #     - image: orangepi3b
+                #       branch: legacy
             fail-fast: false
     steps:
       - run: |
@@ -49,6 +50,7 @@ jobs:
           armbian_branch:    ${{ matrix.version }}                  # branch
           armbian_kernel_branch: ${{ matrix.branch }}                  # kernel branch
           armbian_create_release: false
+          armbian_artifact_name: "armbian-${{ matrix.image }}-${{ matrix.ubuntu }}-${{ matrix.version }}-${{ matrix.branch }}-realtime${{ matrix.realtime }}.img.xz" # artifact name
 
       # if on tag, upload to github release
       # - name: Create Release
