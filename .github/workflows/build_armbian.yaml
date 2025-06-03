@@ -19,7 +19,6 @@ jobs:
                         noble
                         ]
                 version: ["v25.05"]
-                realtime: [1, 0]
                 branch: ["edge",
                 #  "current", "legacy", "vendor"
                 ]
