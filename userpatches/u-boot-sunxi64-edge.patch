@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Doe <john.doe@somewhere.on.planet>
+Date: Tue, 17 Jun 2025 09:57:41 +0000
+Subject: Patching u-boot sunxi64 files configs/orangepi_zero2_defconfig
+
+Signed-off-by: John Doe <john.doe@somewhere.on.planet>
+---
+ configs/orangepi_zero2_defconfig | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/configs/orangepi_zero2_defconfig b/configs/orangepi_zero2_defconfig
+index 945756b2b74..a2d6e9492a2 100644
+--- a/configs/orangepi_zero2_defconfig
++++ b/configs/orangepi_zero2_defconfig
+@@ -9,11 +9,16 @@ CONFIG_DRAM_SUN50I_H616_TPR10=0xf83438
+ CONFIG_MACH_SUN50I_H616=y
+ CONFIG_SUNXI_DRAM_H616_DDR3_1333=y
+ CONFIG_USB1_VBUS_PIN="PC16"
+ CONFIG_R_I2C_ENABLE=y
+ CONFIG_SPL_SPI_SUNXI=y
++CONFIG_LOCALVERSION="-armbian-2024.01-S866c-P4a40-H8869-V3c3c-Bb703-R448a"
++# CONFIG_LOCALVERSION_AUTO is not set
+ # CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
++CONFIG_BOOTDELAY=1
++CONFIG_BOOTCOMMAND="run distro_bootcmd; env set bootargs ${bootargs} root=/dev/nfs ip=10.42.0.133:::::eth0 nfsroot=10.42.0.1:/mirte/mirte-test/nfsroot,nfsvers=3,tcp rw nfsrootdebug; env set bootcmd 'tftp 0x40080000 zero2Image; tftp 0x43000000 sun50i-h616-orangepi-zero2.dtb; booti 0x40080000 - 0x43000000'; boot"
++CONFIG_LOGLEVEL=6
+ CONFIG_SPL_I2C=y
+ CONFIG_SPL_SYS_I2C_LEGACY=y
+ CONFIG_SYS_I2C_MVTWSI=y
+ CONFIG_SYS_I2C_SLAVE=0x7f
+ CONFIG_SYS_I2C_SPEED=400000
+@@ -23,6 +28,5 @@ CONFIG_SUN8I_EMAC=y
+ CONFIG_AXP305_POWER=y
+ CONFIG_SPI=y
+ CONFIG_USB_EHCI_HCD=y
+ CONFIG_USB_OHCI_HCD=y
+ CONFIG_USB_MUSB_GADGET=y
+-CONFIG_PWRLED="PC12"
+-- 
+Created with Armbian build tools https://github.com/armbian/build
+
