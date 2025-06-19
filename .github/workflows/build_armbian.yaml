@@ -57,7 +57,7 @@ jobs:
           prerelease: false
   fix_shasums:
     runs-on: ubuntu-latest
-    # needs: build-armbian
+    needs: build-armbian
     if: always()
     steps:
       - name: Checkout
