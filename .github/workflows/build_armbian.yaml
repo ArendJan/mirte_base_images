@@ -5,7 +5,7 @@ on:
 jobs:
   build-armbian:
     runs-on: ubuntu-latest
-    if: false
+    if: "!startsWith(github.event.head_commit.message, 'x')"
     strategy:
             matrix:
                 image: [
