@@ -5,6 +5,7 @@ on:
 jobs:
   build-armbian:
     runs-on: ubuntu-latest
+    if: false
     strategy:
             matrix:
                 image: [
@@ -56,7 +57,7 @@ jobs:
           prerelease: false
   fix_shasums:
     runs-on: ubuntu-latest
-    needs: build-armbian
+    # needs: build-armbian
     if: always()
     steps:
       - name: Checkout
@@ -85,9 +86,10 @@ jobs:
           # sed -i 's|\*/armbian/.tmp/image-[0-9a-f-]*/||g' *.sha
       - name: Upload all_shasums.sha256sum
         run: |
+          set -xe
           cd shasums
           ls
           # get latest release tag
-          latest_tag=$(gh release list --limit 1 | awk '{print $4}')
-
+          latest_tag=$(gh release list --limit 1 --exclude-pre-releases --json tagName | jq ".[0].tagName" | tr -d '"') # get latest tag, awk doesnt work as there might be spaces in the tag name
+          echo "Latest tag: $latest_tag"
           gh release upload $latest_tag *.sha --clobber
