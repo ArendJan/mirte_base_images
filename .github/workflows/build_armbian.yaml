@@ -19,9 +19,9 @@ jobs:
                         jammy,
                         # noble
                         ]
-                version: ["v25.02"]
+                version: ["v25.11"]
                 branch: ["edge", 
-                        # "current",
+                        "current",
                         # "legacy",
                         # "vendor"
                   ]
