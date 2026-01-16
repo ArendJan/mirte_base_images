@@ -11,6 +11,8 @@ jobs:
                 image: [
                         orangepi3b,
                         orangepizero2,
+                        orangepi5,
+                        orangepi5pro,
                         # orangepizero,
                         # rpi4b, # TODO: failing for now, we just use the latest image from Arbian
                         ]
