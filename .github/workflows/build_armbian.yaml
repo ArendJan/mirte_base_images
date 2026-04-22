@@ -12,7 +12,8 @@ jobs:
                         # orangepi3b,
                         # orangepizero2,
                         # orangepi5,
-                        orangepi5-plus,
+                        # orangepi5-plus,
+                        jetson-nano
                         # orangepizero,
                         # rpi4b, # TODO: failing for now, we just use the latest image from Arbian
                         ]
@@ -24,8 +25,8 @@ jobs:
                 version: ["v25.11"]
                 branch: ["edge", 
                         "current",
-                        # "legacy",
-                        # "vendor"
+                        "legacy",
+                        "vendor"
                   ]
                 exclude:
                     - image: orangepizero
