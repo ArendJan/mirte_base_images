@@ -22,7 +22,7 @@ jobs:
                         jammy,
                         # noble
                         ]
-                version: ["v24.11"]
+                version: ["v25.11"]
                 branch: ["edge", 
                         "current",
                         "legacy",
@@ -42,15 +42,20 @@ jobs:
             fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: ArendJan/build@v24.11
+      - name: set armbian_version without v
+        id: set_version
+        run: echo "armbian_version=$(echo ${{ matrix.version }} | sed 's/v//')" >> $GITHUB_OUTPUT
+      - uses: jenseng/dynamic-uses@v1.1.1
         with:
-          armbian_token:     "${{ secrets.GITHUB_TOKEN }}"  # GitHub token
-          armbian_release:   ${{ matrix.ubuntu }}                        # userspace
-          armbian_target:    "build"                        # build=image, kernel=kernel
-          armbian_board:     ${{ matrix.image }}                   # build target
-          armbian_branch:    ${{ matrix.version }}                  # branch
-          armbian_kernel_branch: ${{ matrix.branch }}                  # kernel branch
-          armbian_version:     24.11                  # version
+          uses: armbian/build@${{ matrix.version }}
+          with: |
+            armbian_token:     "${{ secrets.GITHUB_TOKEN }}"  # GitHub token
+            armbian_release:   ${{ matrix.ubuntu }}                        # userspace
+            armbian_target:    "build"                        # build=image, kernel=kernel
+            armbian_board:     ${{ matrix.image }}                   # build target
+            armbian_branch:    ${{ matrix.version }}                  # branch
+            armbian_kernel_branch: ${{ matrix.branch }}                  # kernel branch
+            armbian_version:  ${{ steps.set_version.outputs.armbian_version }}"                  # version
       # if on tag, upload to github release
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/')
