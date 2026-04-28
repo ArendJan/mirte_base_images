@@ -42,7 +42,7 @@ jobs:
             fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: armbian/build@main
+      - uses: armbian/build@v25.11
         with:
           armbian_token:     "${{ secrets.GITHUB_TOKEN }}"  # GitHub token
           armbian_release:   ${{ matrix.ubuntu }}                        # userspace
