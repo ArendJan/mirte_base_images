@@ -22,7 +22,7 @@ jobs:
                         jammy,
                         # noble
                         ]
-                version: ["v24.08"]
+                version: ["v24.11"]
                 branch: ["edge", 
                         "current",
                         "legacy",
@@ -42,7 +42,7 @@ jobs:
             fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: armbian/build@v24.08
+      - uses: ArendJan/build@v24.11
         with:
           armbian_token:     "${{ secrets.GITHUB_TOKEN }}"  # GitHub token
           armbian_release:   ${{ matrix.ubuntu }}                        # userspace
