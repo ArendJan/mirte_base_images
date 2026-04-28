@@ -55,7 +55,7 @@ jobs:
             armbian_board:     ${{ matrix.image }}                   # build target
             armbian_branch:    ${{ matrix.version }}                  # branch
             armbian_kernel_branch: ${{ matrix.branch }}                  # kernel branch
-            armbian_version:  ${{ steps.set_version.outputs.armbian_version }}"                  # version
+            armbian_version:  ${{ steps.set_version.outputs.armbian_version }}                  # version
       # if on tag, upload to github release
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/')
