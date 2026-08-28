@@ -56,6 +56,8 @@ jobs:
             armbian_branch:    ${{ matrix.version }}                  # branch
             armbian_kernel_branch: ${{ matrix.branch }}                  # kernel branch
             armbian_version:  ${{ steps.set_version.outputs.armbian_version }}                  # version
+            armbian_ui: "server" # server, minimal or desktop
+            armbian_release_title: "Armbian ${{ matrix.version }}"
       # if on tag, upload to github release
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/')
